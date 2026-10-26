@@ -27,23 +27,47 @@ export function Hero() {
         aria-hidden
         className="pointer-events-none object-cover opacity-45 dark:opacity-25 dark:invert"
       />
-      {/* 开场幕布 */}
+      {/* 字标开场：超大 0 与最终的 o 对齐，字母展开后幕布退出。 */}
       {!reduce && (
         <motion.div
           aria-hidden
-          className="pointer-events-none fixed inset-0 z-[70] grid place-items-center bg-curtain text-on-curtain"
+          className="dark-surface pointer-events-none fixed inset-0 z-[70] grid place-items-center overflow-hidden bg-curtain text-on-curtain"
           initial={{ y: "0%" }}
           animate={{ y: "-100%" }}
-          transition={{ duration: 0.85, delay: 0.35, ease }}
+          transition={{ duration: 0.8, delay: 1.3, ease }}
         >
-          <motion.span
-            className="font-display text-7xl italic"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
+          <div className="relative flex select-none items-center justify-center font-display text-[clamp(14rem,46vw,40rem)] leading-[0.75] tracking-[-0.055em]">
+            <motion.span
+              className="absolute inline-block italic text-accent"
+              initial={{ opacity: 0, scale: 0.82 }}
+              animate={{ opacity: [0, 1, 1, 0], scale: [0.82, 1, 1, 1.08] }}
+              transition={{ duration: 0.85, times: [0, 0.2, 0.58, 1], ease: [0.22, 1, 0.36, 1] }}
+            >
+              0
+            </motion.span>
+            <span className="flex">
+              {letters.map((letter, index) => (
+                <span key={index} className="inline-block overflow-hidden pb-[0.08em]">
+                  <motion.span
+                    className={`inline-block ${index === letters.length - 1 ? "pr-[0.08em] italic text-accent" : ""}`}
+                    initial={{ y: "110%", opacity: 0 }}
+                    animate={{ y: "0%", opacity: 1 }}
+                    transition={{ duration: 0.7, delay: 0.43 + index * 0.055, ease }}
+                  >
+                    {letter}
+                  </motion.span>
+                </span>
+              ))}
+            </span>
+          </div>
+          <motion.p
+            className="absolute bottom-8 font-mono text-[9px] uppercase tracking-[0.24em] opacity-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.5 }}
+            transition={{ delay: 0.75, duration: 0.4 }}
           >
-            0
-          </motion.span>
+            Small tools. Real leverage.
+          </motion.p>
         </motion.div>
       )}
 
@@ -73,7 +97,7 @@ export function Hero() {
                 className={`inline-block ${i === letters.length - 1 ? "italic text-accent" : ""}`}
                 initial={reduce ? false : { y: "110%" }}
                 animate={{ y: "0%" }}
-                transition={{ duration: 1, delay: 0.75 + i * 0.06, ease }}
+                transition={{ duration: 0.9, delay: reduce ? 0 : 1.35 + i * 0.055, ease }}
               >
                 {l}
               </motion.span>
@@ -86,7 +110,7 @@ export function Hero() {
         className="relative mt-8 grid gap-6 border-t border-line pt-6 md:grid-cols-12"
         initial={reduce ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ delay: reduce ? 0 : 1.7, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="md:col-span-7">
           <p className="font-display text-[clamp(1.75rem,3vw,2.75rem)] leading-tight tracking-tight">
