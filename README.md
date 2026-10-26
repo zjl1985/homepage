@@ -1,8 +1,8 @@
 # zero · 个人首页
 
-zero（Zjl）的个人主页。Next.js App Router + TypeScript + Tailwind CSS v4 + Motion，部署在 Vercel。
+zero 的个人主页与作品集。Next.js App Router + TypeScript + Tailwind CSS v4 + Motion，部署在 Vercel。
 
-> 视觉灵感来自编辑感/作品集风格的个人站（大字标、等宽小标签、暖纸色 + 深色幕布、克制的进场动画）。代码与文案均为原创。
+暖纸色、墨绿、朱砂红与编辑式排版；项目封面为原创概念视觉，不代表真实产品界面或使用数据。
 
 ## 开发
 
@@ -17,25 +17,22 @@ pnpm build
 
 ```
 app/
-  layout.tsx            # 字体、全局 metadata、导航
-  page.tsx              # 首页：Hero / About / Work / Approach / Footer
-  projects/page.tsx     # 全部项目
-  opengraph-image.tsx   # 动态 OG 图（twitter-image.tsx 同）
+  layout.tsx             # 字体、全局 metadata、导航
+  page.tsx               # Hero / About / Work / Approach / Human side / Footer
+  projects/page.tsx      # 全部项目
+  opengraph-image.png    # 静态社交分享图（twitter-image.png 同）
   icon.svg · sitemap.ts · robots.ts · not-found.tsx
-components/             # hero, nav, about, work, project-row, approach, footer, clock, reveal, section-label
-content/site.ts         # ★ 唯一数据源：名字、简介、链接、项目列表
+components/              # 页面组件与动效
+content/site.ts          # 唯一内容数据源：个人介绍、链接、方法、项目列表
+public/assets/           # 品牌图形与项目概念封面
 lib/utils.ts
 ```
 
 ## 改内容
 
-几乎所有文案都在 `content/site.ts`，标了 `TODO` 的是占位内容：
+个人文案、社交链接与项目列表集中在 `content/site.ts`。项目的 `cover` 指向 `public/assets/projects/` 中的 SVG；`featured` 控制是否出现在首页精选，`status` 可标记 `New` 或 `Research`。
 
-- `email` — 目前是 `hello@example.com`
-- `tagline` / `about` / `role` / `city` / `approach`
-- `links` — 可加 X、博客等
-- `projects` — 项目简介（`life-decision` 简介为占位）
-- `url` — 正式域名，或在 Vercel 设置环境变量 `NEXT_PUBLIC_SITE_URL`
+联系入口使用 `content/site.ts` 中配置的邮箱，并保留 GitHub 链接。正式域名可通过 `NEXT_PUBLIC_SITE_URL` 设置。
 
 ## 部署
 

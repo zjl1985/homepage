@@ -5,13 +5,13 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import { nav, site } from "@/content/site";
 
-/** 顶部悬浮胶囊导航 + 全屏菜单 */
+/** 杂志式页眉：桌面直接呈现章节，窄屏保留全屏目录。 */
 export function Nav() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onKey = (event: KeyboardEvent) => event.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
@@ -22,43 +22,69 @@ export function Nav() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
-        <div className="flex h-11 w-full max-w-sm items-center justify-between rounded-full border border-white/10 bg-[#171513]/90 px-2 text-[#efe9dd] shadow-lg shadow-black/10 backdrop-blur">
-          <a
-            href={`mailto:${site.email}`}
-            aria-label="发邮件 / Email"
-            className="grid size-8 place-items-center rounded-full transition hover:bg-white/10"
-          >
-            <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <rect x="3" y="5" width="18" height="14" rx="2" />
-              <path d="m3 7 9 6 9-6" />
-            </svg>
-          </a>
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-4 edge">
+        <div className="pointer-events-auto mx-auto flex h-14 max-w-[1440px] items-center justify-between rounded-lg border border-ink/10 bg-paper/85 pl-3 pr-2 shadow-[0_8px_32px_rgb(23_21_19/0.05)] backdrop-blur-xl dark:border-white/10">
           <Link
             href="/"
             onClick={() => setOpen(false)}
-            className="font-display text-2xl italic leading-none tracking-tight"
+            className="group flex h-10 items-center gap-3 rounded-md px-1"
             aria-label={`${site.name} — 首页`}
           >
-            z<span className="text-accent">.</span>
-          </Link>
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-controls="site-menu"
-            aria-label={open ? "关闭菜单" : "打开菜单"}
-            className="grid size-8 place-items-center rounded-full transition hover:bg-white/10"
-          >
-            <span className="relative block h-2.5 w-4">
-              <span
-                className={`absolute left-0 h-px w-4 bg-current transition-transform duration-300 ${open ? "top-1/2 rotate-45" : "top-0"}`}
-              />
-              <span
-                className={`absolute left-0 h-px w-4 bg-current transition-transform duration-300 ${open ? "top-1/2 -rotate-45" : "bottom-0"}`}
-              />
+            <span className="font-display text-[1.75rem] italic leading-none tracking-tight">
+              z<span className="text-accent">.</span>
             </span>
-          </button>
+            <span className="hidden border-l border-line pl-3 font-mono text-[9px] uppercase tracking-[0.2em] text-muted sm:block">
+              Independent builder
+            </span>
+          </Link>
+
+          <nav aria-label="桌面导航" className="hidden items-center md:flex">
+            {nav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group relative rounded-sm px-4 py-2 text-xs text-muted transition-colors hover:text-ink"
+              >
+                {item.label}
+                <span className="ml-1.5 font-mono text-[9px] opacity-50">{item.en}</span>
+                <span className="absolute inset-x-4 bottom-0 h-px origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100" />
+              </Link>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-1">
+            <a
+              href={site.links[0].href}
+              target="_blank"
+              rel="noreferrer"
+              className="mr-2 hidden font-mono text-[10px] uppercase tracking-[0.16em] text-muted transition-colors hover:text-accent lg:block"
+            >
+              GitHub ↗
+            </a>
+            <a
+              href={`mailto:${site.email}`}
+              aria-label="发邮件 / Email"
+              className="grid size-10 place-items-center rounded-md transition hover:bg-ink/5 dark:hover:bg-white/10"
+            >
+              <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="m3 7 9 6 9-6" />
+              </svg>
+            </a>
+            <button
+              type="button"
+              onClick={() => setOpen((value) => !value)}
+              aria-expanded={open}
+              aria-controls="site-menu"
+              aria-label={open ? "关闭菜单" : "打开菜单"}
+              className="grid size-10 place-items-center rounded-md transition hover:bg-ink/5 md:hidden dark:hover:bg-white/10"
+            >
+              <span className="relative block h-2.5 w-4">
+                <span className={`absolute left-0 h-px w-4 bg-current transition-transform duration-300 ${open ? "top-1/2 rotate-45" : "top-0"}`} />
+                <span className={`absolute left-0 h-px w-4 bg-current transition-transform duration-300 ${open ? "top-1/2 -rotate-45" : "bottom-0"}`} />
+              </span>
+            </button>
+          </div>
         </div>
       </header>
 
@@ -66,37 +92,46 @@ export function Nav() {
         {open && (
           <motion.nav
             id="site-menu"
-            className="fixed inset-0 z-40 flex flex-col justify-end bg-curtain pb-12 pt-28 text-on-curtain edge"
+            aria-label="移动端导航"
+            className="dark-surface fixed inset-0 z-40 flex flex-col justify-end bg-curtain pb-12 pt-28 text-on-curtain edge"
             initial={{ clipPath: "inset(0 0 100% 0)" }}
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
-            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
           >
+            <p className="mb-auto font-mono text-[10px] uppercase tracking-[0.2em] opacity-50">
+              Index / 目录
+            </p>
             <ul className="divide-y divide-white/10 border-y border-white/10">
-              {nav.map((item, i) => (
+              {nav.map((item, index) => (
                 <motion.li
                   key={item.href}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25 + i * 0.06, duration: 0.5 }}
+                  transition={{ delay: 0.15 + index * 0.05, duration: 0.4 }}
                 >
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="group flex items-baseline gap-6 py-4"
+                    className="group flex items-baseline gap-5 py-4"
                   >
-                    <span className="font-mono text-xs opacity-50">0{i + 1}</span>
-                    <span className="font-display text-5xl transition-transform duration-500 group-hover:translate-x-3 md:text-7xl">
+                    <span className="font-mono text-[10px] opacity-50">0{index + 1}</span>
+                    <span className="font-display text-5xl transition-transform duration-500 group-hover:translate-x-2">
                       {item.label}
                     </span>
-                    <span className="ml-auto font-mono text-xs uppercase tracking-widest opacity-50">
+                    <span className="ml-auto font-mono text-[10px] uppercase tracking-widest opacity-50">
                       {item.en} →
                     </span>
                   </Link>
                 </motion.li>
               ))}
             </ul>
-            <p className="mt-8 font-mono text-xs opacity-60">{site.email}</p>
+            <a
+              href={`mailto:${site.email}`}
+              className="mt-8 inline-block font-mono text-xs opacity-60 transition hover:opacity-100"
+            >
+              {site.email}
+            </a>
           </motion.nav>
         )}
       </AnimatePresence>

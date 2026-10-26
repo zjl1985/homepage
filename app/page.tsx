@@ -2,6 +2,7 @@ import { About } from "@/components/about";
 import { Approach } from "@/components/approach";
 import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
+import { HumanSide } from "@/components/human-side";
 import { Work } from "@/components/work";
 import { site } from "@/content/site";
 
@@ -9,7 +10,6 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: site.name,
-  alternateName: site.nickname,
   url: site.url,
   sameAs: site.links.map((l) => l.href),
 };
@@ -25,6 +25,7 @@ export default function Home() {
       <About />
       <Work />
       <Approach />
+      <HumanSide />
       <Footer />
     </main>
   );

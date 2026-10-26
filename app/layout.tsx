@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Instrument_Serif, JetBrains_Mono } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
 import { Nav } from "@/components/nav";
 import { site } from "@/content/site";
 import "./globals.css";
@@ -11,14 +11,13 @@ const serif = Instrument_Serif({
   weight: "400",
   style: ["normal", "italic"],
 });
-const mono = JetBrains_Mono({ variable: "--font-jetbrains", subsets: ["latin"] });
-
-const description = `${site.tagline} ${site.taglineEn}`;
+const description = "zero 的个人作品集。关注全栈开发、local-first 桌面工具、AI Agent 工作流与有趣的小项目。Small tools. Real leverage.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.name} — ${site.role}`, template: `%s · ${site.name}` },
   description,
+  keywords: ["zero", "full-stack developer", "independent builder", "AI Agent", "local-first", "open source"],
   authors: [{ name: site.name, url: "https://github.com/zjl1985" }],
   openGraph: {
     type: "website",
@@ -41,10 +40,14 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="zh-CN"
-      className={`${inter.variable} ${serif.variable} ${mono.variable} antialiased`}
-    >
+    <html lang="zh-CN" className={`${inter.variable} ${serif.variable} antialiased`}>
+      <head>
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/fontsource/css/maple-mono@latest/index.css"
+        />
+      </head>
       <body className="grain min-h-dvh">
         <Nav />
         {children}
