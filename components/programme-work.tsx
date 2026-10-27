@@ -3,6 +3,7 @@
 import { motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { projects, type Project } from "@/content/site";
 import { ProjectStage } from "./project-stage";
 import { WordCard } from "./about";
@@ -28,7 +29,7 @@ function StoryCard({ project, index, progress, origin, selected, onSelect }: { p
   const scale = useTransform(progress, [0, 0.34, 0.55, 0.9], [0.25, 0.85, 0.85, 0.85]);
   const rotate = useTransform(progress, [0, 0.4, 0.55, 0.9], [-6, (index - 4) * 1.5, (index - 4) * 1.5, angle]);
   return <motion.button type="button" onClick={onSelect} aria-label={`选择 ${project.name}`} aria-pressed={selected} style={{ x,y,scale,rotate,zIndex: index + 1 }} className={`absolute left-1/2 top-1/2 -ml-20 -mt-24 w-40 border bg-paper p-2 text-left shadow-[0_8px_22px_rgb(23_21_19/0.12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent ${selected ? "border-accent" : "border-ink/30"}`}>
-    <span className="flex h-36 flex-col justify-between border border-ink/15 bg-surface p-3"><span className="font-mono text-[8px] uppercase tracking-wider text-muted">Image pending</span><span className="font-display text-xl leading-none">{project.name}</span></span>
+    <span className="relative block h-36 overflow-hidden border border-ink/15 bg-surface"><Image src={project.cover} alt="" fill sizes="144px" unoptimized={project.slug === "zero-bot" || project.slug === "meow-wall"} className="object-cover" /><span className="absolute inset-x-0 bottom-0 bg-paper/90 px-2 py-1 font-display text-xl leading-none text-ink">{project.name}</span></span>
     <span className="flex justify-between pt-2 font-mono text-[8px] uppercase tracking-wider text-muted"><span>No. {String(index+1).padStart(2,"0")}</span><span>{project.status === "Coming soon" ? "Soon" : project.status === "Research" ? "Research" : index === 0 ? "Featured" : "Work"}</span></span>
   </motion.button>;
 }

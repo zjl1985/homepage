@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, type Ref } from "react";
+import Image from "next/image";
+import { projects } from "@/content/site";
 import { motion } from "motion/react";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { Reveal } from "./reveal";
@@ -9,14 +11,15 @@ import { SectionLabel } from "./section-label";
 export function WordCard({ word, title, detail, anchorRef }: { word: string; title: string; detail: string; anchorRef?: Ref<HTMLSpanElement> }) {
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();
+  const project = projects.find((item) => item.name === title)!;
   return (
     <span className="group relative inline-block">
       <button type="button" onClick={() => setOpen(!open)} onPointerEnter={(event) => { if (event.pointerType === "mouse") setOpen(true); }} onPointerLeave={(event) => { if (event.pointerType === "mouse") setOpen(false); }} onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }} onFocus={(event) => { if (event.currentTarget.matches(":focus-visible")) setOpen(true); }} onBlur={() => setOpen(false)} aria-expanded={open} className="border-b border-accent text-accent transition-colors hover:text-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
-        {word}<span ref={anchorRef} aria-hidden className="ml-2 inline-flex h-7 w-10 -rotate-6 items-end border border-ink/40 bg-surface p-1 align-middle shadow-sm"><span className="w-full border-t border-ink/30 text-right font-mono text-[6px] leading-none text-ink/60">{detail === "Local tools" ? "01" : detail === "Agent workflows" ? "02" : "03"}</span></span>
+        {word}<span ref={anchorRef} aria-hidden className="relative ml-2 inline-block h-7 w-10 -rotate-6 overflow-hidden border border-ink/40 bg-surface align-middle shadow-sm"><Image src={project.cover} alt="" fill sizes="40px" unoptimized={project.slug === "meow-wall"} className="object-cover" /></span>
       </button>
       <motion.span aria-hidden={!open} initial={false} animate={open ? { opacity: 1, y: 0, scale: 1, rotate: -3 } : { opacity: 0, y: 8, scale: 0.85, rotate: -6 }} transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 340, damping: 25 }} className="pointer-events-none absolute bottom-[105%] left-0 z-20 w-40 border border-ink/30 bg-paper p-2 shadow-lg">
-        <span className="flex aspect-[8/5] items-end border border-ink/15 bg-surface p-2 font-display text-lg leading-none text-ink">{title}</span>
-        <span className="mt-2 block font-mono text-[8px] uppercase tracking-wider text-muted">{detail} · Image pending</span>
+        <span className="relative block aspect-[8/5] overflow-hidden border border-ink/15 bg-surface"><Image src={project.cover} alt="" fill sizes="160px" unoptimized={project.slug === "meow-wall"} className="object-cover" /></span>
+        <span className="mt-2 block font-mono text-[8px] uppercase tracking-wider text-muted">{title} · {detail}</span>
       </motion.span>
     </span>
   );

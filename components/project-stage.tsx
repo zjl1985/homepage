@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { useState } from "react";
+import Image from "next/image";
 import type { Project } from "@/content/site";
 
 const shortDescriptions: Record<string, [string, string]> = {
@@ -41,10 +42,7 @@ export function ProjectStage({ projects }: { projects: Project[] }) {
             <div className="absolute inset-4 rotate-[3deg] border border-ink/20 bg-curtain" aria-hidden />
             <AnimatePresence mode="wait" initial={false}>
             <motion.div key={current.slug} initial={reduce ? false : { opacity: 0, x: 22, rotate: 3 }} animate={{ opacity: 1, x: 0, rotate: -2 }} exit={reduce ? { opacity: 1 } : { opacity: 0, x: -18, rotate: -4 }} transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 240, damping: 25 }} className="relative border border-ink/40 bg-paper p-3 shadow-[0_14px_32px_rgb(23_21_19/0.1)]">
-              <div className="flex aspect-[8/5] flex-col justify-between border border-ink/15 bg-surface p-5 text-ink">
-                <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted">封面待设计 / Image pending</span>
-                <span className="font-display text-[clamp(2rem,5vw,4rem)] leading-none">{current.name}</span>
-              </div>
+              <div className="relative aspect-[8/5] overflow-hidden border border-ink/15 bg-surface"><Image src={current.cover} alt={current.coverAlt} fill sizes="(min-width: 768px) 50vw, 90vw" unoptimized={current.slug === "zero-bot" || current.slug === "meow-wall"} className="object-cover" /></div>
               <p className="flex justify-between px-1 pt-3 font-mono text-[9px] uppercase tracking-[0.14em] text-muted"><span>No. {String(selected + 1).padStart(2, "0")}</span><span>{current.year}</span></p>
             </motion.div>
             </AnimatePresence>

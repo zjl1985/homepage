@@ -1,19 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import type { Project } from "@/content/site";
 
-/** A neutral placeholder keeps each project usable while its cover is being designed. */
+/** Project illustration and details. */
 export function ProjectRow({ project, index }: { project: Project; index: number }) {
   const [english, setEnglish] = useState(false);
   return (
     <li id={`project-${project.slug}`} className="scroll-mt-28 border-t border-ink/25 py-7">
       <article className="grid gap-5 sm:grid-cols-[minmax(0,1fr)_1.2fr] sm:gap-8">
         <div className="border border-ink/35 bg-paper p-2 shadow-[0_8px_24px_rgb(25_22_18/0.07)]">
-          <div className="flex aspect-[8/5] flex-col justify-between border border-ink/15 bg-surface p-4 text-ink">
-            <div className="flex justify-between font-mono text-[9px] uppercase tracking-[0.14em] text-ink/50"><span>封面待设计</span><span>Image pending</span></div>
-            <div><span className="font-mono text-[10px] text-ink/50">{String(index + 1).padStart(2, "0")} / 08</span><p className="mt-2 font-display text-3xl leading-none sm:text-4xl">{project.name}</p></div>
-          </div>
+          <div className="relative aspect-[8/5] overflow-hidden border border-ink/15 bg-surface"><Image src={project.cover} alt={project.coverAlt} fill sizes="(min-width: 768px) 35vw, 90vw" unoptimized={project.slug === "zero-bot" || project.slug === "meow-wall"} className="object-cover" /></div>
           <p className="px-1 pt-2 font-mono text-[9px] uppercase tracking-[0.14em] text-ink/50">No. {String(index + 1).padStart(2, "0")} · {project.year}</p>
         </div>
         <div className="flex flex-col items-start justify-center py-1">

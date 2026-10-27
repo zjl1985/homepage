@@ -2,7 +2,7 @@
  * 站点配置 — Site config
  * ------------------------------------------------------------
  * 这里是整个首页唯一需要改的数据源。
- * 作品封面目前使用中性占位。
+ * 项目封面为原创概念插画。
  */
 
 export type Project = {
@@ -14,6 +14,8 @@ export type Project = {
   summaryEn?: string;
   tags: string[];
   year: string;
+  cover: string;
+  coverAlt: string;
   repo?: string;
   url?: string;
   /** 项目阶段，可选 */
@@ -66,6 +68,8 @@ export const site = {
 export const projects: Project[] = [
   {
     slug: "life-decision",
+    cover: "/assets/projects/covers/life-decision.webp",
+    coverAlt: "放大镜下的建议卡与分支线条的概念插画",
     name: "Life Decision",
     summary: "输入人生处境，从《高性价比人生指南》中找到贴合的原文建议。",
     summaryEn: "Find relevant, source-backed advice for life's decisions.",
@@ -76,6 +80,8 @@ export const projects: Project[] = [
   },
   {
     slug: "zero-bot",
+    cover: "/assets/projects/covers/zero-bot.webp",
+    coverAlt: "灰蓝像素猫与聊天、任务和文件符号的概念插画",
     name: "Zero Bot",
     summary: "可以边聊天边处理后台任务的猫猫助手。",
     summaryEn: "A cat assistant that chats while tasks run in the background.",
@@ -85,6 +91,8 @@ export const projects: Project[] = [
   },
   {
     slug: "zero-api-key",
+    cover: "/assets/projects/covers/zero-api-key.webp",
+    coverAlt: "钥匙形保险匣与终端、云端的概念插画",
     name: "ZeroApiKey",
     summary: "为 macOS 整理 API 密钥与密码的本地优先工具，桌面应用和命令行共用数据。",
     summaryEn: "A local-first secret manager for macOS, with a desktop app and CLI.",
@@ -94,6 +102,8 @@ export const projects: Project[] = [
   },
   {
     slug: "agent-sweep",
+    cover: "/assets/projects/covers/agent-sweep.webp",
+    coverAlt: "分类收纳的会话文件与放大镜的概念插画",
     name: "Agent Sweep",
     summary: "查看五种 AI 编码助手的本地会话、空间和 token 使用情况，按各自能力安全清理。",
     summaryEn: "Inspect and safely clean local coding-agent sessions.",
@@ -103,6 +113,8 @@ export const projects: Project[] = [
   },
   {
     slug: "baton",
+    cover: "/assets/projects/covers/baton.webp",
+    coverAlt: "两个机器人交接文件的概念插画",
     name: "Baton",
     summary: "只读提取编码 Agent 的上下文，在本机生成交接包，让另一个 Agent 接着工作。",
     summaryEn: "Hand coding-agent context to a fresh session in another agent.",
@@ -112,6 +124,8 @@ export const projects: Project[] = [
   },
   {
     slug: "zero-notice",
+    cover: "/assets/projects/covers/zero-notice.webp",
+    coverAlt: "桌面信号经铃铛传送到手机的概念插画",
     name: "zero-notice",
     summary: "将 Codex 任务结束和权限请求推送到 Bark，不发送命令或回答。",
     summaryEn: "Bark notifications for Codex task completion and permission requests.",
@@ -121,6 +135,8 @@ export const projects: Project[] = [
   },
   {
     slug: "meow-wall",
+    cover: "/assets/projects/covers/meow-wall.webp",
+    coverAlt: "灰蓝像素猫和不同配饰猫头的概念插画",
     name: "Meow Wall",
     summary: "一面可以捏猫、收藏和分享的像素猫墙，所有自定义猫猫都保存在浏览器里。",
     summaryEn: "A playful pixel-cat wall, studio, and sharing space.",
@@ -131,6 +147,8 @@ export const projects: Project[] = [
   },
   {
     slug: "zero-jev",
+    cover: "/assets/projects/covers/zero-jev.webp",
+    coverAlt: "浏览器结构经棱镜转化为类型化结果的概念插画",
     name: "Zero Jev",
     summary: "研究类型化语义判断在浏览器与桌面自动化中的应用，目前处于资料研究阶段。",
     summaryEn: "Researching typed semantic decisions for browser and desktop automation.",
