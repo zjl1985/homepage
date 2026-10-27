@@ -4,26 +4,16 @@ import { SectionLabel } from "./section-label";
 
 export function Approach() {
   return (
-    <section id="approach" className="mx-auto max-w-[1600px] scroll-mt-24 py-28 md:py-40 edge">
-      <div className="mb-14 grid gap-8 md:grid-cols-12">
+    <section id="approach" className="mx-auto max-w-[1600px] scroll-mt-24 py-24 md:py-36 edge">
+      <div className="grid gap-8 md:grid-cols-12">
         <SectionLabel index="03" zh="方法" en="Approach" className="md:col-span-3" />
-        <Reveal className="md:col-span-9">
-          <h2 className="font-display text-4xl leading-tight tracking-tight md:text-6xl">
-            先解决问题，<span className="italic text-muted">再决定用什么技术。</span>
-          </h2>
-        </Reveal>
+        <div className="md:col-span-9">
+          <Reveal><h2 className="font-display text-4xl leading-tight tracking-tight md:text-6xl">先解决问题，<span className="italic text-muted">再决定用什么技术。</span></h2></Reveal>
+          <ol className="mt-12 border-t border-line">
+            {site.approach.map((step, i) => <li key={step.title} className="border-b border-line"><details className="group"><summary className="flex cursor-pointer list-none items-center gap-5 py-5 marker:content-none"><span className="font-mono text-[10px] text-accent">0{i + 1}</span><span className="font-display text-2xl md:text-3xl">{step.title}</span><span className="ml-auto text-muted transition-transform duration-300 group-open:rotate-45" aria-hidden>＋</span></summary><p className="max-w-xl pb-6 pl-9 text-sm leading-7 text-muted">{step.body}</p></details></li>)}
+          </ol>
+        </div>
       </div>
-      <ol className="grid gap-px border-y border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-        {site.approach.map((step, i) => (
-          <li key={step.title} className="flex min-h-72 flex-col bg-paper p-6 md:p-8">
-            <Reveal delay={i * 0.08} className="flex h-full flex-col">
-              <span className="font-mono text-[10px] tracking-[0.14em] text-accent">0{i + 1} / Process</span>
-              <h3 className="mt-auto pt-16 font-display text-4xl tracking-tight">{step.title}</h3>
-              <p className="mt-4 text-sm leading-7 text-muted">{step.body}</p>
-            </Reveal>
-          </li>
-        ))}
-      </ol>
     </section>
   );
 }

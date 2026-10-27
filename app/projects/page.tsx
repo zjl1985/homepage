@@ -7,7 +7,7 @@ import { projects } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "项目 / Projects",
-  description: "zero 的开源项目：AI Agent 工作流、local-first 桌面工具与有趣的小实验。",
+  description: "zero 的项目：AI Agent 工作流、local-first 桌面工具与有趣的小实验。",
   alternates: { canonical: "/projects" },
 };
 

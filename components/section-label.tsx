@@ -19,11 +19,7 @@ export function SectionLabel({
         className,
       )}
     >
-      <span className="text-accent">§ {index}</span>
-      <span className="h-px w-8 bg-current opacity-40" aria-hidden />
-      <span>
-        {zh} / {en}
-      </span>
+      <span>( {index === "§" ? "" : `${index} · `}{zh} / {en} )</span>
     </p>
   );
 }

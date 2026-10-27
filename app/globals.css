@@ -2,30 +2,34 @@
 
 /* ------------------------------------------------------------
  * Design tokens
- * 暖纸色 + 墨色 + 朱砂红点缀；暗色模式自动跟随系统
+ * 中性色纸面与鼠尾草绿功能色；暗色模式跟随系统
  * ---------------------------------------------------------- */
 :root {
-  --paper: #f3efe7;
-  --ink: #171513;
-  --muted: #68635b;
-  --surface: #ebe6dc;
-  --line: rgb(23 21 19 / 0.13);
-  --accent: #b03a24; /* 朱砂 */
-  --curtain: #1b2a24; /* 墨绿 — intro / footer */
-  --on-curtain: #efe9dd;
+  --paper: #f7f6f3;
+  --ink: #242424;
+  --muted: #626762;
+  --surface: #f0efeb;
+  --line: #dcdedb;
+  --accent: #3c5c50;
+  --on-accent: #ffffff;
+  --accent-hover: #2b473c;
+  --curtain: #202321;
+  --on-curtain: #f0f1eb;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #12110f;
-    --ink: #ece6da;
-    --muted: #a49c91;
-    --surface: #1b1916;
-    --line: rgb(236 230 218 / 0.14);
-    --accent: #e0654a;
-    --curtain: #0b1612;
-    --on-curtain: #ece6da;
+    --paper: #191b1b;
+    --ink: #f0f1eb;
+    --muted: #adb4ad;
+    --surface: #242827;
+    --line: #404641;
+    --accent: #b8cdbf;
+    --on-accent: #202321;
+    --accent-hover: #d3e3d7;
+    --curtain: #202321;
+    --on-curtain: #f0f1eb;
     color-scheme: dark;
   }
 }
@@ -64,12 +68,13 @@ time,
 }
 
 .dark-surface {
-  --accent: #e2a08c;
+  --accent: #b8cdbf;
+  --on-accent: #202321;
 }
 
 ::selection {
   background: var(--accent);
-  color: var(--paper);
+  color: var(--on-accent);
 }
 
 :focus-visible {
@@ -94,6 +99,7 @@ time,
 }
 
 @media (prefers-reduced-motion: reduce) {
+  [data-reveal], [data-motion-reveal] { opacity: 1 !important; transform: none !important; }
   html {
     scroll-behavior: auto;
   }
@@ -105,4 +111,12 @@ time,
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.orbit-arc, .orbit-dot { transform-origin: 1710px 665px; animation: orbit-rotation 80s linear infinite; }
+.orbit-dot { animation-name: orbit-rotation; }
+@keyframes orbit-rotation { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .orbit-arc, .orbit-dot { animation: none; }
+  .intro-curtain { display: none; }
 }

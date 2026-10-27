@@ -1,9 +1,9 @@
-import { About } from "@/components/about";
+import { ProgrammeWork } from "@/components/programme-work";
 import { Approach } from "@/components/approach";
 import { Footer } from "@/components/footer";
 import { Hero } from "@/components/hero";
 import { HumanSide } from "@/components/human-side";
-import { Work } from "@/components/work";
+
 import { site } from "@/content/site";
 
 const jsonLd = {
@@ -22,8 +22,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
       <Hero />
-      <About />
-      <Work />
+      <ProgrammeWork />
       <Approach />
       <HumanSide />
       <Footer />

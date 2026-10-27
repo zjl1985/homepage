@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif } from "next/font/google";
 import { Nav } from "@/components/nav";
+import { PointerHalo } from "@/components/pointer-halo";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -33,8 +34,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f3efe7" },
-    { media: "(prefers-color-scheme: dark)", color: "#12110f" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f6f3" },
+    { media: "(prefers-color-scheme: dark)", color: "#191b1b" },
   ],
 };
 
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="zh-CN" className={`${inter.variable} ${serif.variable} antialiased`}>
       <head>
+        <noscript><style>{".intro-curtain{display:none!important}"}</style></noscript>
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
@@ -50,6 +52,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="grain min-h-dvh">
         <Nav />
+        <PointerHalo />
         {children}
       </body>
     </html>

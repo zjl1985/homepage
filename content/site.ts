@@ -2,7 +2,7 @@
  * 站点配置 — Site config
  * ------------------------------------------------------------
  * 这里是整个首页唯一需要改的数据源。
- * 项目封面为概念视觉，不代表真实产品截图或使用数据。
+ * 作品封面目前使用中性占位。
  */
 
 export type Project = {
@@ -16,12 +16,8 @@ export type Project = {
   year: string;
   repo?: string;
   url?: string;
-  /** 编辑式概念封面 */
-  cover: string;
   /** 项目阶段，可选 */
-  status?: "New" | "Research";
-  /** 首页精选 */
-  featured?: boolean;
+  status?: "New" | "Research" | "Coming soon";
 };
 
 export type Link = { label: string; href: string };
@@ -69,72 +65,78 @@ export const site = {
 
 export const projects: Project[] = [
   {
-    slug: "zero-notice",
-    name: "zero-notice",
-    summary: "把 Agent 任务完成、等待权限确认等事件推送到 Bark；只传安全字段，不发送命令或回答。",
-    summaryEn: "Quiet, privacy-conscious Bark notifications for agent events.",
-    tags: ["Node.js", "Codex", "Bark"],
-    year: "2026",
-    repo: "https://github.com/zjl1985/zero-notice",
-    cover: "/assets/projects/00-zero-notice.svg",
-    status: "New",
-    featured: true,
-  },
-  {
     slug: "life-decision",
     name: "Life Decision",
-    summary: "用类型化 AI 排序原始建议，保留证据等级与出处，让人生选择更容易拆解。",
-    summaryEn: "Evidence-aware guidance, grounded in original sources.",
-    tags: ["Next.js", "Jev", "Decision AI"],
+    summary: "输入人生处境，从《高性价比人生指南》中找到贴合的原文建议。",
+    summaryEn: "Find relevant, source-backed advice for life's decisions.",
+    tags: ["Next.js", "Jev", "Evidence"],
     year: "2026",
     repo: "https://github.com/zjl1985/life-decision",
     url: "https://life-decision-fawn.vercel.app",
-    cover: "/assets/projects/01-life-decision.svg",
-    featured: true,
+  },
+  {
+    slug: "zero-bot",
+    name: "Zero Bot",
+    summary: "可以边聊天边处理后台任务的猫猫助手。",
+    summaryEn: "A cat assistant that chats while tasks run in the background.",
+    tags: ["AI Assistant", "Background Tasks", "Work in Progress"],
+    year: "2026",
+    status: "Coming soon",
+  },
+  {
+    slug: "zero-api-key",
+    name: "ZeroApiKey",
+    summary: "为 macOS 整理 API 密钥与密码的本地优先工具，桌面应用和命令行共用数据。",
+    summaryEn: "A local-first secret manager for macOS, with a desktop app and CLI.",
+    tags: ["macOS", "Tauri", "CLI"],
+    year: "2026",
+    repo: "https://github.com/zjl1985/zero-api-key",
   },
   {
     slug: "agent-sweep",
     name: "Agent Sweep",
-    summary: "统一查看 Codex、Claude Code 等五种 Agent 的本地会话与空间占用，按能力安全清理。",
-    summaryEn: "Understand agent sessions. Clean safely, locally.",
-    tags: ["Tauri 2", "Rust", "Preact"],
+    summary: "查看五种 AI 编码助手的本地会话、空间和 token 使用情况，按各自能力安全清理。",
+    summaryEn: "Inspect and safely clean local coding-agent sessions.",
+    tags: ["Tauri 2", "Rust", "Local-first"],
     year: "2026",
     repo: "https://github.com/zjl1985/agent-sweep",
-    cover: "/assets/projects/02-agentsweep.svg",
-    featured: true,
   },
   {
     slug: "baton",
     name: "Baton",
-    summary: "只读提取编码 Agent 的上下文，打包并交接到另一个 Agent 的新会话。",
-    summaryEn: "Hand off context, not control.",
+    summary: "只读提取编码 Agent 的上下文，在本机生成交接包，让另一个 Agent 接着工作。",
+    summaryEn: "Hand coding-agent context to a fresh session in another agent.",
     tags: ["Tauri 2", "Rust", "AI Agents"],
     year: "2026",
     repo: "https://github.com/zjl1985/baton",
-    cover: "/assets/projects/03-baton.svg",
-    featured: true,
+  },
+  {
+    slug: "zero-notice",
+    name: "zero-notice",
+    summary: "将 Codex 任务结束和权限请求推送到 Bark，不发送命令或回答。",
+    summaryEn: "Bark notifications for Codex task completion and permission requests.",
+    tags: ["Node.js", "Codex", "Bark"],
+    year: "2026",
+    repo: "https://github.com/zjl1985/zero-notice",
   },
   {
     slug: "meow-wall",
     name: "Meow Wall",
-    summary: "一面没什么用、但很快乐的像素猫猫墙。捏猫、收藏、说话卡片，全都在浏览器里。",
-    summaryEn: "A wonderfully useless pixel cat gallery and studio.",
+    summary: "一面可以捏猫、收藏和分享的像素猫墙，所有自定义猫猫都保存在浏览器里。",
+    summaryEn: "A playful pixel-cat wall, studio, and sharing space.",
     tags: ["Next.js", "Pixel Art", "Just for Fun"],
     year: "2026",
     repo: "https://github.com/zjl1985/meow-wall",
     url: "https://meow-wall.vercel.app",
-    cover: "/assets/projects/04-meow-wall.svg",
-    featured: true,
   },
   {
     slug: "zero-jev",
     name: "Zero Jev",
-    summary: "研究类型化语义判断如何融入 Browser Use 与 Computer Use 工作流。",
-    summaryEn: "Exploring typed semantic decisions for computer-use workflows.",
+    summary: "研究类型化语义判断在浏览器与桌面自动化中的应用，目前处于资料研究阶段。",
+    summaryEn: "Researching typed semantic decisions for browser and desktop automation.",
     tags: ["Research", "Jev", "Automation"],
     year: "2026",
     repo: "https://github.com/zjl1985/zero-jev",
-    cover: "/assets/projects/05-zero-jev.svg",
     status: "Research",
   },
 ];
