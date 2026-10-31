@@ -3,12 +3,15 @@ import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useScroll } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { nav, site } from "@/content/site";
 
 /** 杂志式页眉：桌面直接呈现章节，窄屏保留全屏目录。 */
 export function Nav() {
+  const sketch = usePathname() === "/sketch";
+  const sectionHref = (href: string) => sketch ? href.replace("/#", "/sketch#") : href;
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll();
@@ -44,11 +47,11 @@ export function Nav() {
 
   return (
     <>
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-4 edge">
+      <header data-sketch={sketch || undefined} className="site-header pointer-events-none fixed inset-x-0 top-0 z-50 pt-4 edge">
         <div className="pointer-events-auto relative mx-auto flex h-14 max-w-[1440px] items-center justify-between rounded-lg border border-ink/10 bg-paper/85 pl-3 pr-2 shadow-[0_8px_32px_rgb(23_21_19/0.05)] backdrop-blur-xl dark:border-white/10">
           {!reduce && <motion.span aria-hidden className="absolute bottom-0 left-2 right-2 h-px origin-left bg-accent/60" style={{ scaleX: scrollYProgress }} />}
           <Link
-            href="/"
+            href={sketch ? "/sketch" : "/"}
             onClick={() => setOpen(false)}
             className="group flex h-10 items-center gap-3 rounded-md px-1"
             aria-label={`${site.name} — 首页`}
@@ -65,7 +68,7 @@ export function Nav() {
             {nav.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={sectionHref(item.href)}
                 className="group relative rounded-sm px-4 py-2 text-xs text-muted transition-colors hover:text-ink"
               >
                 {item.label}
@@ -76,6 +79,14 @@ export function Nav() {
           </nav>
 
           <div className="flex items-center gap-1">
+            <Link
+              href={sketch ? "/" : "/sketch"}
+              onClick={() => setOpen(false)}
+              title={sketch ? "切换到经典风格" : "切换到手绘札记风格"}
+              className="style-switch inline-flex min-h-10 items-center gap-2 rounded-md border border-current/25 px-3 text-xs transition-colors hover:bg-ink/5"
+            >
+              <span aria-hidden="true">↻</span> 换个风格
+            </Link>
             <a
               href={site.links[0].href}
               target="_blank"
@@ -136,7 +147,7 @@ export function Nav() {
                   transition={{ delay: reduce ? 0 : 0.15 + index * 0.05, duration: reduce ? 0 : 0.4 }}
                 >
                   <Link
-                    href={item.href}
+                    href={sectionHref(item.href)}
                     onClick={() => setOpen(false)}
                     className="group flex items-baseline gap-5 py-4"
                   >
